@@ -8,18 +8,20 @@
 | :------------------: | :---------: | :-----------------------------------------------------------: | :-------------------------------------------------------------: | :-----: |
 | DeepSequence dataset |   Fitness   |              34 single-point mutation DMS studies             |                                                                 | 2018-09 |
 |        MaveDB        |   Fitness   |   The database contains fitness data of different mutations   |                    <https://www.mavedb.org/>                    | 2022-09 |
-|  GeoFitnessdatasets  |   Fitness   |                        74 DMS datasets                        |                   [dms.csv](dms_data/dms.csv)                   | 2023-05 |
+|  GeoFitness dataset  |   Fitness   |                        74 DMS datasets                        |                   [dms.csv](data/dms/dms.csv)                   | 2023-05 |
 |      ProThermDB      | ΔΔG and ΔTm | The database contains ΔΔG and ΔTm data of different mutations |     <https://web.iitm.ac.in/bioinfo2/prothermdb/index.html>     | 2021-07 |
 |      ThermoMutDB     | ΔΔG and ΔTm | The database contains ΔΔG and ΔTm data of different mutations |           <https://biosig.lab.uq.edu.au/thermomutdb/>           | 2021-07 |
-|         S2648        |     ΔΔG     |          2648 single-point mutation from 131 proteins         | This file is included in [S8754.csv](train_test_data/S8754.csv) | 2009-08 |
-|         S8754        |     ΔΔG     |          8754 single-point mutation from 301 proteins         |              [S8754.csv](train_test_data/S8754.csv)             | 2023-05 |
-|         S783         |     ΔΔG     |           783 single-point mutation from 55 proteins          |               [S783.csv](train_test_data/S783.csv)              | 2023-05 |
-|         S669         |     ΔΔG     |           669 single-point mutation from 94 proteins          |               [S669.csv](train_test_data/S669.csv)              | 2022-01 |
-|         S461         |     ΔΔG     |           461 single-point mutation from 48 proteins          |               [S461.csv](train_test_data/S461.csv)              | 2023-01 |
-|         S1626        |     ΔTm     |          1626 single-point mutation from 95 proteins          | This file is included in [S4346.csv](train_test_data/S4346.csv) | 2016-06 |
-|         S4346        |     ΔTm     |          4346 single-point mutation from 349 proteins         |              [S4346.csv](train_test_data/S4346.csv)             | 2023-05 |
-|         S571         |     ΔTm     |           571 single-point mutation from 37 proteins          |               [S571.csv](train_test_data/S571.csv)              | 2023-05 |
+|         S2648        |     ΔΔG     |          2648 single-point mutation from 131 proteins         | This file is included in [S8754.csv](data/ddG/S8754.csv) | 2009-08 |
+|         S8754        |     ΔΔG     |          8754 single-point mutation from 301 proteins         |              [S8754.csv](data/ddG/S8754.csv)             | 2023-05 |
+|         S783         |     ΔΔG     |           783 single-point mutation from 55 proteins          |               [S783.csv](data/ddG/S783.csv)              | 2023-05 |
+|         S669         |     ΔΔG     |           669 single-point mutation from 94 proteins          |               [S669.csv](data/ddG/S669.csv)              | 2022-01 |
+|         S461         |     ΔΔG     |           461 single-point mutation from 48 proteins          |               [S461.csv](data/ddG/S461.csv)              | 2023-01 |
+|         S1626        |     ΔTm     |          1626 single-point mutation from 95 proteins          | This file is included in [S4346.csv](data/ddG/S4346.csv) | 2016-06 |
+|         S4346        |     ΔTm     |          4346 single-point mutation from 349 proteins         |              [S4346.csv](data/dTm/S4346.csv)             | 2023-05 |
+|         S571         |     ΔTm     |           571 single-point mutation from 37 proteins          |               [S571.csv](data/dTm/S571.csv)              | 2023-05 |
 
+
+Other data files in the `data` folder
 
 ## Prerequisites
 
