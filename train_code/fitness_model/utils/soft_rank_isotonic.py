@@ -1,6 +1,7 @@
 import numpy as np
 from numba import njit
 
+
 @njit
 def isotonic_l2(y, sol):
     """Solves an isotonic regression problem using PAV.
@@ -58,7 +59,7 @@ def isotonic_l2(y, sol):
     i = 0
     while i < n:
         k = target[i] + 1
-        sol[i + 1: k] = sol[i]
+        sol[i + 1 : k] = sol[i]
         i = k
 
 
@@ -130,5 +131,5 @@ def isotonic_kl(y, w, sol):
     i = 0
     while i < n:
         k = target[i] + 1
-        sol[i + 1: k] = sol[i]
+        sol[i + 1 : k] = sol[i]
         i = k

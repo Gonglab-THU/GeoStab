@@ -2,6 +2,7 @@ import soft_rank_isotonic
 import numpy as np
 from scipy import special
 
+
 def isotonic_l2(input_s, input_w=None):
     """Solves an isotonic regression problem using PAV.
 
@@ -36,8 +37,7 @@ def isotonic_kl(input_s, input_w=None):
         input_w = np.arange(len(input_s))[::-1] + 1
     input_w = input_w.astype(input_s.dtype)
     solution = np.zeros(len(input_s)).astype(input_s.dtype)
-    soft_rank_isotonic.isotonic_kl(
-        input_s, input_w.astype(input_s.dtype), solution)
+    soft_rank_isotonic.isotonic_kl(input_s, input_w.astype(input_s.dtype), solution)
     return solution
 
 
@@ -59,8 +59,7 @@ def _partition(solution, eps=1e-9):
 
 def _check_regularization(regularization):
     if regularization not in ("l2", "kl"):
-        raise ValueError("'regularization' should be either 'l2' or 'kl' "
-                         "but got %s." % str(regularization))
+        raise ValueError("'regularization' should be either 'l2' or 'kl' " "but got %s." % str(regularization))
 
 
 class _Differentiable(object):
@@ -123,8 +122,7 @@ class Isotonic(_Differentiable):
             if self.regularization == "l2":
                 val = np.mean(vector[start:end])
             else:
-                val = np.dot(special.softmax(self.input_s[start:end]),
-                             vector[start:end])
+                val = np.dot(special.softmax(self.input_s[start:end]), vector[start:end])
             return_value[start:end] = val
             start = end
         return return_value
@@ -135,7 +133,7 @@ class Isotonic(_Differentiable):
         for size in _partition(self.solution_):
             end = start + size
             if self.regularization == "l2":
-                val = 1. / size
+                val = 1.0 / size
             else:
                 val = special.softmax(self.input_s[start:end])
             return_value[start:end] = val * np.sum(vector[start:end])
@@ -184,29 +182,25 @@ class Projection(_Differentiable):
     def jvp(self, vector):
         self._check_computed()
         ret = vector.copy()
-        ret -= self.isotonic_.jvp(vector[self.permutation]
-                                  )[self.inv_permutation]
+        ret -= self.isotonic_.jvp(vector[self.permutation])[self.inv_permutation]
         return ret
 
     def vjp(self, vector):
         self._check_computed()
         ret = vector.copy()
-        ret -= self.isotonic_.vjp(vector[self.permutation]
-                                  )[self.inv_permutation]
+        ret -= self.isotonic_.vjp(vector[self.permutation])[self.inv_permutation]
         return ret
 
 
 def _check_direction(direction):
     if direction not in ("ASCENDING", "DESCENDING"):
-        raise ValueError(
-            "direction should be either 'ASCENDING' or 'DESCENDING'")
+        raise ValueError("direction should be either 'ASCENDING' or 'DESCENDING'")
 
 
 class SoftRank(_Differentiable):
     """Soft ranking."""
 
-    def __init__(self, values, direction="ASCENDING",
-                 regularization_strength=1.0, regularization="l2"):
+    def __init__(self, values, direction="ASCENDING", regularization_strength=1.0, regularization="l2"):
         self.values = np.asarray(values)
         self.input_w = np.arange(len(values))[::-1] + 1
         _check_direction(direction)
@@ -226,16 +220,11 @@ class SoftRank(_Differentiable):
 
     def compute(self):
         if self.regularization == "kl":
-            self.projection_ = Projection(
-                self.values * self.scale,
-                np.log(self.input_w),
-                regularization=self.regularization)
+            self.projection_ = Projection(self.values * self.scale, np.log(self.input_w), regularization=self.regularization)
             self.factor = np.exp(self.projection_.compute())
             return self.factor
         else:
-            self.projection_ = Projection(
-                self.values * self.scale, self.input_w,
-                regularization=self.regularization)
+            self.projection_ = Projection(self.values * self.scale, self.input_w, regularization=self.regularization)
             self.factor = 1.0
             return self.projection_.compute()
 
@@ -251,8 +240,7 @@ class SoftRank(_Differentiable):
 class SoftSort(_Differentiable):
     """Soft sorting."""
 
-    def __init__(self, values, direction="ASCENDING",
-                 regularization_strength=1.0, regularization="l2"):
+    def __init__(self, values, direction="ASCENDING", regularization_strength=1.0, regularization="l2"):
         self.values = np.asarray(values)
         _check_direction(direction)
         self.sign = 1 if direction == "DESCENDING" else -1
@@ -276,8 +264,7 @@ class SoftSort(_Differentiable):
         self.permutation_ = np.argsort(values)[::-1]
         s = values[self.permutation_]
 
-        self.isotonic_ = Isotonic(
-            input_w, s, regularization=self.regularization)
+        self.isotonic_ = Isotonic(input_w, s, regularization=self.regularization)
         res = self.isotonic_.compute()
 
         # We set s as the first argument as we want the derivatives w.r.t. s.
@@ -329,8 +316,7 @@ class Sort(_Differentiable):
 # computation.
 
 
-def soft_rank(values, direction="ASCENDING", regularization_strength=1.0,
-              regularization="l2"):
+def soft_rank(values, direction="ASCENDING", regularization_strength=1.0, regularization="l2"):
     r"""Soft rank the given values.
 
     The regularization strength determines how close are the returned values
@@ -346,12 +332,10 @@ def soft_rank(values, direction="ASCENDING", regularization_strength=1.0,
     Returns:
       A 1d-array, soft-ranked.
     """
-    return SoftRank(values, regularization_strength=regularization_strength,
-                    direction=direction, regularization=regularization).compute()
+    return SoftRank(values, regularization_strength=regularization_strength, direction=direction, regularization=regularization).compute()
 
 
-def soft_sort(values, direction="ASCENDING", regularization_strength=1.0,
-              regularization="l2"):
+def soft_sort(values, direction="ASCENDING", regularization_strength=1.0, regularization="l2"):
     r"""Soft sort the given values.
 
     Args:
@@ -364,8 +348,7 @@ def soft_sort(values, direction="ASCENDING", regularization_strength=1.0,
     Returns:
       A 1d-array, soft-sorted.
     """
-    return SoftSort(values, regularization_strength=regularization_strength,
-                    direction=direction, regularization=regularization).compute()
+    return SoftSort(values, regularization_strength=regularization_strength, direction=direction, regularization=regularization).compute()
 
 
 def sort(values, direction="ASCENDING"):

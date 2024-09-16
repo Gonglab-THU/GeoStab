@@ -1,6 +1,7 @@
 import torch
 import soft_rank_numpy
 
+
 def wrap_class(cls, **kwargs):
     """Wraps the given NumpyOp in a torch Function."""
 
@@ -24,8 +25,7 @@ def map_tensor(map_fn, tensor):
     return torch.stack([map_fn(tensor_i) for tensor_i in torch.unbind(tensor)])
 
 
-def soft_rank(values, direction="ASCENDING", regularization_strength=1.0,
-              regularization="l2"):
+def soft_rank(values, direction="ASCENDING", regularization_strength=1.0, regularization="l2"):
     r"""Soft rank the given values (tensor) along the second axis.
 
     The regularization strength determines how close are the returned values
@@ -42,18 +42,13 @@ def soft_rank(values, direction="ASCENDING", regularization_strength=1.0,
       A 2d-tensor, soft-ranked along the second axis.
     """
     if len(values.shape) != 2:
-        raise ValueError("'values' should be a 2d-tensor "
-                         "but got %r." % values.shape)
+        raise ValueError("'values' should be a 2d-tensor " "but got %r." % values.shape)
 
-    wrapped_fn = wrap_class(soft_rank_numpy.SoftRank,
-                            regularization_strength=regularization_strength,
-                            direction=direction,
-                            regularization=regularization)
+    wrapped_fn = wrap_class(soft_rank_numpy.SoftRank, regularization_strength=regularization_strength, direction=direction, regularization=regularization)
     return map_tensor(wrapped_fn.apply, values)
 
 
-def soft_sort(values, direction="ASCENDING",
-              regularization_strength=1.0, regularization="l2"):
+def soft_sort(values, direction="ASCENDING", regularization_strength=1.0, regularization="l2"):
     r"""Soft sort the given values (tensor) along the second axis.
 
     The regularization strength determines how close are the returned values
@@ -70,12 +65,8 @@ def soft_sort(values, direction="ASCENDING",
       A 2d-tensor, soft-sorted along the second axis.
     """
     if len(values.shape) != 2:
-        raise ValueError("'values' should be a 2d-tensor "
-                         "but got %s." % str(values.shape))
+        raise ValueError("'values' should be a 2d-tensor " "but got %s." % str(values.shape))
 
-    wrapped_fn = wrap_class(soft_rank_numpy.SoftSort,
-                            regularization_strength=regularization_strength,
-                            direction=direction,
-                            regularization=regularization)
+    wrapped_fn = wrap_class(soft_rank_numpy.SoftSort, regularization_strength=regularization_strength, direction=direction, regularization=regularization)
 
     return map_tensor(wrapped_fn.apply, values)
