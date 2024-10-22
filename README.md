@@ -82,7 +82,7 @@ bash run.sh -m ddGdTm -v threeD -o ./example_3D
 
 ## Reference
 
-[Improving the prediction of protein stability changes upon mutations by geometric learning and a pre-training strategy](https://doi.org/10.1101/2023.05.28.542668)
+[Improving the prediction of protein stability changes upon mutations by geometric learning and a pre-training strategy](https://doi.org/10.1038/s43588-024-00716-2)
 
 ## Acknowledgements
 
